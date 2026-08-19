@@ -8,6 +8,8 @@ import ActiveInvestigation from "./pages/active_investigation"
 import ThreatIntelligence from "./pages/threat_intelligence"
 import AIAgents from "./pages/ai_agents"
 import Settings from "./pages/settings"
+import Reports from "./pages/reports"
+import History from "./pages/history"
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/threat-intelligence" element={<ThreatIntelligence />} />
         <Route path="/ai-agents" element={<AIAgents />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/history" element={<History />} />
       </Route>
     </Routes>
   )

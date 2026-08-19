@@ -1,30 +1,49 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
-const navigationItems = [
+const navigationSections = [
     {
-        label: "Dashboard",
-        path: "/dashboard"
+        title: "Workspace",
+        items: [
+            {
+                label: "Dashboard",
+                path: "/dashboard"
+            },
+            {
+                label: "New Investigation",
+                path: "/new-investigation"
+            },
+            {
+                label: "Active Investigation",
+                path: "/active-investigation"
+            },
+            {
+                label: "Threat Intelligence",
+                path: "/threat-intelligence"
+            }
+        ]
     },
     {
-        label: "New Investigation",
-        path: "/new-investigation"
-    },
-    {
-        label: "Active Investigation",
-        path: "/active-investigation"
-    },
-    {
-        label: "Threat Intelligence",
-        path: "/threat-intelligence"
-    },
-    {
-        label: "AI Agents",
-        path: "/ai-agents"
-    },
-    {
-        label: "Settings",
-        path: "/settings"
+        title: "Operations",
+        items: [
+            {
+                label: "AI Agents",
+                path: "/ai-agents"
+            },
+            {
+                label: "Settings",
+                path: "/settings"
+            },
+            {
+                label: "Reports",
+                path: "/reports"
+            },
+            {
+                label: "History",
+                path: "/history"
+            }
+        ]
     }
+    
 ]
 
 function Sidebar() {
@@ -35,13 +54,27 @@ function Sidebar() {
             </div>
 
             <nav className="flex flex-col gap-1">
-                {navigationItems.map((item) => (
-                    <Link
-                        key={item.path}
-                        to={item.path}
-                        className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-white">
-                        {item.label}
-                    </Link>
+                {navigationSections.map((section) => (
+                    <div key={section.title}>
+                        <p className="mb=2 pb-4 pt-3 px-3 text-xs font-medium text-gray-500">{section.title}</p>
+
+                        <div className="flex flex-col gap-1">
+                            {section.items.map((item) => (
+                                <NavLink
+                                    key={item.path}
+                                    to={item.path}
+                                    className={
+                                        ({ isActive }) =>
+                                            isActive 
+                                                ? "rounded-lg bg-white/10 px-3 py-2 text-sm font-medium text-white"
+                                                : "rounded-lg px-3 py-2 text-sm trext-gray-300 hover:bg-white/5 hover:text-white"
+                                    }
+                                >
+                                    {item.label}
+                                </NavLink>
+                            ))}
+                        </div>
+                    </div>
                 ))}
             </nav>
         </aside>
