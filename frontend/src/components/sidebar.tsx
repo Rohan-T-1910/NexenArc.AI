@@ -1,4 +1,14 @@
-import { NavLink } from "react-router-dom"
+import {
+    LayoutDashboard,
+    Search,
+    Shield,
+    Radar,
+    Bot,
+    FileText,
+    History,
+    Settings,
+} from "lucide-react"
+import NavItem from "./nav_item"
 
 const navigationSections = [
     {
@@ -6,19 +16,23 @@ const navigationSections = [
         items: [
             {
                 label: "Dashboard",
-                path: "/dashboard"
+                path: "/dashboard",
+                icon: LayoutDashboard,
             },
             {
                 label: "New Investigation",
-                path: "/new-investigation"
+                path: "/new-investigation",
+                icon: Search,
             },
             {
                 label: "Active Investigation",
-                path: "/active-investigation"
+                path: "/active-investigation",
+                icon: Shield,
             },
             {
                 label: "Threat Intelligence",
-                path: "/threat-intelligence"
+                path: "/threat-intelligence",
+                icon: Radar,
             }
         ]
     },
@@ -27,19 +41,23 @@ const navigationSections = [
         items: [
             {
                 label: "AI Agents",
-                path: "/ai-agents"
-            },
-            {
-                label: "Settings",
-                path: "/settings"
+                path: "/ai-agents",
+                icon: Bot
             },
             {
                 label: "Reports",
-                path: "/reports"
+                path: "/reports",
+                icon: FileText,
             },
             {
                 label: "History",
-                path: "/history"
+                path: "/history",
+                icon: History
+            },
+            {
+                label: "Settings",
+                path: "/settings",
+                icon: Settings,
             }
         ]
     }
@@ -53,25 +71,19 @@ function Sidebar() {
                 <h1 className="text-xl font-semibold">NexenARC</h1>
             </div>
 
-            <nav className="flex flex-col gap-1">
+            <nav className="flex flex-col gap-6">
                 {navigationSections.map((section) => (
                     <div key={section.title}>
                         <p className="mb=2 pb-4 pt-3 px-3 text-xs font-medium text-gray-500">{section.title}</p>
 
                         <div className="flex flex-col gap-1">
                             {section.items.map((item) => (
-                                <NavLink
+                                <NavItem
                                     key={item.path}
-                                    to={item.path}
-                                    className={
-                                        ({ isActive }) =>
-                                            isActive 
-                                                ? "rounded-lg bg-white/10 px-3 py-2 text-sm font-medium text-white"
-                                                : "rounded-lg px-3 py-2 text-sm trext-gray-300 hover:bg-white/5 hover:text-white"
-                                    }
-                                >
-                                    {item.label}
-                                </NavLink>
+                                    label={item.label}
+                                    icon={item.icon}
+                                    path={item.path}
+                                />
                             ))}
                         </div>
                     </div>
