@@ -6,7 +6,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from "recharts"
+} from "recharts";
 
 const data = [
   {
@@ -51,7 +51,7 @@ const data = [
     high: 24,
     critical: 11,
   },
-]
+];
 
 function ThreatTrend() {
   return (
@@ -67,69 +67,23 @@ function ThreatTrend() {
           }}
         >
           <defs>
-            <linearGradient
-              id="mediumGradient"
-              x1="0"
-              y1="0"
-              x2="0"
-              y2="1"
-            >
-              <stop
-                offset="0%"
-                stopColor="#4f8cff"
-                stopOpacity={0.3}
-              />
-              <stop
-                offset="100%"
-                stopColor="#4f8cff"
-                stopOpacity={0.02}
-              />
+            <linearGradient id="mediumGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#4f8cff" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="#4f8cff" stopOpacity={0.02} />
             </linearGradient>
 
-            <linearGradient
-              id="highGradient"
-              x1="0"
-              y1="0"
-              x2="0"
-              y2="1"
-            >
-              <stop
-                offset="0%"
-                stopColor="#f5a623"
-                stopOpacity={0.25}
-              />
-              <stop
-                offset="100%"
-                stopColor="#f5a623"
-                stopOpacity={0.02}
-              />
+            <linearGradient id="highGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#f5a623" stopOpacity={0.25} />
+              <stop offset="100%" stopColor="#f5a623" stopOpacity={0.02} />
             </linearGradient>
 
-            <linearGradient
-              id="criticalGradient"
-              x1="0"
-              y1="0"
-              x2="0"
-              y2="1"
-            >
-              <stop
-                offset="0%"
-                stopColor="#ef4444"
-                stopOpacity={0.25}
-              />
-              <stop
-                offset="100%"
-                stopColor="#ef4444"
-                stopOpacity={0.02}
-              />
+            <linearGradient id="criticalGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ef4444" stopOpacity={0.25} />
+              <stop offset="100%" stopColor="#ef4444" stopOpacity={0.02} />
             </linearGradient>
           </defs>
 
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#273244"
-            vertical={true}
-          />
+          <CartesianGrid strokeDasharray="3 3" stroke="#273244" vertical={true} />
 
           <XAxis
             dataKey="day"
@@ -140,13 +94,7 @@ function ThreatTrend() {
             dy={4}
           />
 
-          <YAxis
-            stroke="#64748b"
-            tickLine={false}
-            axisLine={false}
-            fontSize={12}
-            width={35}
-          />
+          <YAxis stroke="#64748b" tickLine={false} axisLine={false} fontSize={12} width={35} />
 
           <Tooltip
             contentStyle={{
@@ -188,7 +136,7 @@ function ThreatTrend() {
         </AreaChart>
       </ResponsiveContainer>
     </div>
-  )
+  );
 }
 
-export default ThreatTrend
+export default ThreatTrend;

@@ -1,22 +1,16 @@
 type PageHeaderProps = {
-    title: string
-    description?: string
+  title: string;
+  description?: string;
+};
+
+function PageHeader({ title, description }: PageHeaderProps) {
+  return (
+    <div className="mb-6">
+      <h1 className="text-2xl font-semibold text-white">{title}</h1>
+
+      {description && <p className="mt-1 text-sm text-gray-500">{description}</p>}
+    </div>
+  );
 }
 
-function PageHeader({ title, description}: PageHeaderProps) {
-    return (
-        <div className="mb-6">
-            <h1 className="text-2xl font-semibold text-white">
-                {title}
-            </h1>
-
-            {description && (
-                <p className="mt-1 text-sm text-gray-500">
-                    {description}
-                </p>
-            )}
-        </div>
-    )
-}
-
-export default PageHeader
+export default PageHeader;
