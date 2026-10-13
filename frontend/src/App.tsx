@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 
 import AppLayout from "./layouts/AppLayout"
 
@@ -14,7 +14,11 @@ import History from "./pages/history"
 function App() {
   return (
     <Routes>
-      <Route element={<AppLayout />}>
+      <Route element={<AppLayout
+        title="Dashboard"
+        subtitle="Real-time posture across agents, artifacts and incidents"
+      />}>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/new-investigation" element={<NewInvestigation />} />
         <Route path="/active-investigation" element={<ActiveInvestigation />} />
