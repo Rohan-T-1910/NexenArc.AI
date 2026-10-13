@@ -27,13 +27,9 @@ export default function AgentUtilisation() {
       {agents.map((agent) => (
         <div key={agent.name}>
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm text-gray-300">
-              {agent.name}
-            </span>
+            <span className="text-sm text-gray-300">{agent.name}</span>
 
-            <span className="text-sm text-gray-500">
-              {agent.utilisation}%
-            </span>
+            <span className="text-sm text-gray-500">{agent.utilisation}%</span>
           </div>
 
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#1e2a3d]">

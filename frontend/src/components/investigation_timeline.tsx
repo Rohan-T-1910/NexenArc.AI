@@ -1,12 +1,4 @@
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts"
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const data = [
   {
@@ -34,7 +26,7 @@ const data = [
     opened: 20,
     closed: 17,
   },
-]
+];
 
 function InvestigationTimeline() {
   return (
@@ -49,26 +41,11 @@ function InvestigationTimeline() {
             bottom: 0,
           }}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#273244"
-            vertical={false}
-          />
+          <CartesianGrid strokeDasharray="3 3" stroke="#273244" vertical={false} />
 
-          <XAxis
-            dataKey="time"
-            stroke="#64748b"
-            tickLine={false}
-            axisLine={false}
-            fontSize={12}
-          />
+          <XAxis dataKey="time" stroke="#64748b" tickLine={false} axisLine={false} fontSize={12} />
 
-          <YAxis
-            stroke="#64748b"
-            tickLine={false}
-            axisLine={false}
-            fontSize={12}
-          />
+          <YAxis stroke="#64748b" tickLine={false} axisLine={false} fontSize={12} />
 
           <Tooltip
             cursor={{
@@ -82,21 +59,13 @@ function InvestigationTimeline() {
             }}
           />
 
-          <Bar
-            dataKey="opened"
-            fill="#4f8cff"
-            radius={[4, 4, 0, 0]}
-          />
+          <Bar dataKey="opened" fill="#4f8cff" radius={[4, 4, 0, 0]} />
 
-          <Bar
-            dataKey="closed"
-            fill="#18b98a"
-            radius={[4, 4, 0, 0]}
-          />
+          <Bar dataKey="closed" fill="#18b98a" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
-  )
+  );
 }
 
-export default InvestigationTimeline
+export default InvestigationTimeline;

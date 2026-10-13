@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  Mail,
-  Link2,
-  FileText,
-  Bug,
-  ScrollText,
-  Shield,
-  ChevronDown,
-} from "lucide-react";
+import { Mail, Link2, FileText, Bug, ScrollText, Shield, ChevronDown } from "lucide-react";
 
 const investigationTypes = [
   {
@@ -75,9 +67,7 @@ function NewInvestigation() {
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6">
       {/* Left Column: Investigation Type Card */}
       <div className="rounded-2xl border border-white/10 bg-[#0d1016] p-6 h-fit">
-        <h2 className="text-sm font-semibold text-white">
-          Investigation type
-        </h2>
+        <h2 className="text-sm font-semibold text-white">Investigation type</h2>
         <p className="mt-1 text-xs text-gray-400 mb-5">
           Choose what you are handing over to the agent mesh.
         </p>
@@ -104,13 +94,9 @@ function NewInvestigation() {
                   <Icon size={16} />
                 </div>
 
-                <h3 className="mt-3.5 text-sm font-semibold text-white">
-                  {type.title}
-                </h3>
+                <h3 className="mt-3.5 text-sm font-semibold text-white">{type.title}</h3>
 
-                <p className="mt-1 text-xs leading-5 text-gray-400">
-                  {type.description}
-                </p>
+                <p className="mt-1 text-xs leading-5 text-gray-400">{type.description}</p>
               </button>
             );
           })}
@@ -119,15 +105,11 @@ function NewInvestigation() {
 
       {/* Right Column: Triage Options Card */}
       <div className="rounded-2xl border border-white/10 bg-[#0d1016] p-5 h-fit">
-        <h2 className="text-sm font-semibold text-white">
-          Triage options
-        </h2>
+        <h2 className="text-sm font-semibold text-white">Triage options</h2>
 
         {/* Priority Select */}
         <div className="mt-4">
-          <label className="block text-xs text-gray-400 mb-2">
-            Priority
-          </label>
+          <label className="block text-xs text-gray-400 mb-2">Priority</label>
           <div className="relative">
             <select
               value={priority}
@@ -146,9 +128,7 @@ function NewInvestigation() {
         {/* Deep Sandbox Scan Box */}
         <div className="mt-4 rounded-xl border border-white/10 bg-[#080a0f] p-3.5">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-semibold text-white">
-              Deep sandbox scan
-            </h3>
+            <h3 className="text-xs font-semibold text-white">Deep sandbox scan</h3>
             <button
               type="button"
               onClick={() => setDeepScan(!deepScan)}
@@ -170,9 +150,7 @@ function NewInvestigation() {
 
         {/* Agents Assigned Section */}
         <div className="mt-5">
-          <h3 className="text-xs text-gray-400 mb-2.5">
-            Agents assigned
-          </h3>
+          <h3 className="text-xs text-gray-400 mb-2.5">Agents assigned</h3>
           <div className="space-y-2">
             {[
               "Ingest & Parser",
@@ -180,10 +158,7 @@ function NewInvestigation() {
               "Sandbox Detonation",
               "Correlation & Verdict",
             ].map((agent) => (
-              <div
-                key={agent}
-                className="flex items-center gap-2 text-xs text-gray-300"
-              >
+              <div key={agent} className="flex items-center gap-2 text-xs text-gray-300">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
                 <span>{agent}</span>
               </div>

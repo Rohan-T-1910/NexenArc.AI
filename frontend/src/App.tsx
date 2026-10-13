@@ -1,23 +1,27 @@
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import AppLayout from "./layouts/AppLayout"
+import AppLayout from "./layouts/AppLayout";
 
-import Dashboard from "./pages/dashboard"
-import NewInvestigation from "./pages/new_investigation"
-import ActiveInvestigation from "./pages/active_investigation"
-import ThreatIntelligence from "./pages/threat_intelligence"
-import AIAgents from "./pages/ai_agents"
-import Settings from "./pages/settings"
-import Reports from "./pages/reports"
-import History from "./pages/history"
+import Dashboard from "./pages/dashboard";
+import NewInvestigation from "./pages/new_investigation";
+import ActiveInvestigation from "./pages/active_investigation";
+import ThreatIntelligence from "./pages/threat_intelligence";
+import AIAgents from "./pages/ai_agents";
+import Settings from "./pages/settings";
+import Reports from "./pages/reports";
+import History from "./pages/history";
 
 function App() {
   return (
     <Routes>
-      <Route element={<AppLayout
-        title="Dashboard"
-        subtitle="Real-time posture across agents, artifacts and incidents"
-      />}>
+      <Route
+        element={
+          <AppLayout
+            title="Dashboard"
+            subtitle="Real-time posture across agents, artifacts and incidents"
+          />
+        }
+      >
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/new-investigation" element={<NewInvestigation />} />
@@ -29,6 +33,6 @@ function App() {
         <Route path="/history" element={<History />} />
       </Route>
     </Routes>
-  )
+  );
 }
-export default App
+export default App;
