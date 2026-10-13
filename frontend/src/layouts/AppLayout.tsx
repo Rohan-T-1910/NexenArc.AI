@@ -1,20 +1,31 @@
 import { Outlet } from "react-router-dom";
-
 import Sidebar from "../components/sidebar";
 import Topbar from "../components/topbar";
 
-function AppLayout() {
-    return (
-        <div className="flex min-h-screen bg-[#090b10] text-white">
-            <Sidebar />
-            <main className="flex min-w-0 flex-1 flex-col">
-                <Topbar />
-                <div className="flex-1 p-6">
-                    <Outlet />
-                </div>
-            </main>
-        </div>
-    )
+type AppLayoutProps = {
+  title: string
+  subtitle: string
 }
 
-export default AppLayout
+function AppLayout({ title, subtitle }: AppLayoutProps) {
+  return (
+    <div className="flex h-screen overflow-hidden bg-[#090b10] text-white">
+      
+      <Sidebar />
+
+      <main className="flex min-w-0 flex-1 min-h-0 flex-col">
+        <Topbar
+            title={title}
+            subtitle={subtitle}
+        />
+
+        <div className="min-h-0 flex-1 overflow-y-auto p-6">
+          <Outlet />
+        </div>
+      </main>
+
+    </div>
+  );
+}
+
+export default AppLayout;
