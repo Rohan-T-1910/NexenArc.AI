@@ -1,0 +1,495 @@
+import type {
+  DashboardMetrics,
+  Investigation,
+  Report,
+  TeamMemberStatus,
+  ThreatLookupResult,
+  User,
+} from "@/types";
+
+export const mockCurrentUser: User = {
+  id: "usr_01hqz7",
+  email: "analyst@nexenarc.internal",
+  name: "Morgan Vance",
+  role: "analyst",
+  createdAt: "2026-01-15T08:00:00Z",
+};
+
+export const sampleActiveInvestigation: Investigation = {
+  id: "case_98214",
+  title: "Suspicious payment invoice email with external download link",
+  inputContent:
+    "From: accounting-billing@verify-securepay-portal.com\nSubject: Overdue Invoice INV-8921\nPlease download your reconciliation statement from https://storage-verify-portal.top/invoice-8921.zip",
+  inputType: "email",
+  priority: "high",
+  status: "completed",
+  overallSeverity: "critical",
+  confidence: "high",
+  createdAt: "12 minutes ago",
+  updatedAt: "Just now",
+  currentStep: "Writing your report",
+  progressPercentage: 100,
+  verdict: {
+    id: "vrd_104",
+    investigationId: "case_98214",
+    whatHappened:
+      "A spear-phishing email impersonated an accounting partner to deliver an info-stealing payload disguised as an overdue invoice archive.",
+    howSeriousIsIt:
+      "Critical severity. The domain is newly registered and the linked download attempts to harvest session credentials.",
+    whatToDoNext: [
+      "Block the sender domain verify-securepay-portal.com at your email gateway.",
+      "Block outbound traffic to 194.26.29.112 across perimeter firewalls.",
+      "Reset browser sessions and passwords for accounting department staff who opened the message.",
+      "Purge the message from all internal inboxes immediately.",
+    ],
+    overallSeverity: "critical",
+    confidence: "high",
+    confidenceScore: 0.94,
+    verdictTime: "2 minutes ago",
+  },
+  suspiciousItems: [
+    {
+      id: "ioc_1",
+      investigationId: "case_98214",
+      type: "email",
+      value: "accounting-billing@verify-securepay-portal.com",
+      normalizedValue: "accounting-billing@verify-securepay-portal.com",
+      severity: "critical",
+      confidence: "high",
+      reputationScore: 92,
+      threatActors: ["Storm-0914"],
+      details: { dkimPass: false, spfPass: false },
+    },
+    {
+      id: "ioc_2",
+      investigationId: "case_98214",
+      type: "url",
+      value: "https://storage-verify-portal.top/invoice-8921.zip",
+      normalizedValue: "storage-verify-portal.top",
+      severity: "critical",
+      confidence: "high",
+      reputationScore: 96,
+      threatActors: ["RedLine Stealer Distribution"],
+      mitreTechniques: ["T1566.002 Spearphishing Link", "T1204 User Execution"],
+      details: { registrar: "NameCheap", domainAgeDays: 2 },
+    },
+    {
+      id: "ioc_3",
+      investigationId: "case_98214",
+      type: "ip",
+      value: "194.26.29.112",
+      normalizedValue: "194.26.29.112",
+      severity: "high",
+      confidence: "high",
+      reputationScore: 88,
+      details: { country: "NL", asn: "AS44592" },
+    },
+  ],
+  findings: [
+    {
+      id: "fnd_01",
+      investigationId: "case_98214",
+      agentRole: "Quick assessment",
+      title: "Suspicious message header mismatch",
+      plainSummary: "The sender display name does not match the actual mail origin server.",
+      severity: "high",
+      confidence: "high",
+      timestamp: "11 mins ago",
+      evidenceReferences: ["Email header analysis"],
+      technicalDetails: {
+        returnPath: "bounce@temp-relay-mail.ru",
+        clientIp: "194.26.29.112",
+      },
+    },
+    {
+      id: "fnd_02",
+      investigationId: "case_98214",
+      agentRole: "Checking suspicious items",
+      title: "Newly registered lookalike domain",
+      plainSummary:
+        "The domain in the download link was created only 48 hours ago and impersonates a payroll brand.",
+      severity: "critical",
+      confidence: "high",
+      timestamp: "8 mins ago",
+      evidenceReferences: ["Domain registry check"],
+      technicalDetails: {
+        registeredDate: "2026-10-11T04:12:00Z",
+        nameserver: "ns1.bulletproof-dns.org",
+      },
+    },
+    {
+      id: "fnd_03",
+      investigationId: "case_98214",
+      agentRole: "Known-threat check",
+      title: "Destination host flagged on multiple threat feeds",
+      plainSummary:
+        "Three independent intelligence providers identify the hosting server as an active credential collector.",
+      severity: "critical",
+      confidence: "high",
+      timestamp: "4 mins ago",
+      evidenceReferences: ["Community threat sources"],
+      technicalDetails: {
+        feedMatches: ["AbuseIPDB (100% confidence)", "URLhaus (Malware payload)", "OTX pulse"],
+      },
+    },
+    {
+      id: "fnd_04",
+      investigationId: "case_98214",
+      agentRole: "Writing your report",
+      title: "Comprehensive incident summary compiled",
+      plainSummary:
+        "Identified all indicators, mapped delivery path, and generated step-by-step containment instructions.",
+      severity: "safe",
+      confidence: "high",
+      timestamp: "Just now",
+      evidenceReferences: ["Case consolidation"],
+      technicalDetails: {
+        totalIndicatorsChecked: 3,
+        mitreTacticCount: 2,
+      },
+    },
+  ],
+  runs: [
+    {
+      id: "run_1",
+      investigationId: "case_98214",
+      agentId: "triage",
+      agentName: "Quick assessment",
+      role: "Triage",
+      status: "completed",
+      startedAt: "12m ago",
+      completedAt: "11m ago",
+      findingsCount: 1,
+      technicalMetadata: { latencyMs: 1420, tokensUsed: 620, modelUsed: "Fast classifier" },
+    },
+    {
+      id: "run_2",
+      investigationId: "case_98214",
+      agentId: "ioc_analysis",
+      agentName: "Checking suspicious items",
+      role: "Indicator Analysis",
+      status: "completed",
+      startedAt: "11m ago",
+      completedAt: "8m ago",
+      findingsCount: 1,
+      technicalMetadata: { latencyMs: 2310, tokensUsed: 890, modelUsed: "Regex + Extractor" },
+    },
+    {
+      id: "run_3",
+      investigationId: "case_98214",
+      agentId: "threat_intel",
+      agentName: "Known-threat check",
+      role: "Threat Enrichment",
+      status: "completed",
+      startedAt: "8m ago",
+      completedAt: "4m ago",
+      findingsCount: 1,
+      technicalMetadata: { latencyMs: 3100, tokensUsed: 1140, modelUsed: "Enrichment Feed" },
+    },
+    {
+      id: "run_4",
+      investigationId: "case_98214",
+      agentId: "report_agent",
+      agentName: "Writing your report",
+      role: "Synthesis",
+      status: "completed",
+      startedAt: "4m ago",
+      completedAt: "Just now",
+      findingsCount: 1,
+      technicalMetadata: { latencyMs: 1890, tokensUsed: 1450, modelUsed: "Report Engine" },
+    },
+  ],
+};
+
+export const mockInvestigationsList: Investigation[] = [
+  sampleActiveInvestigation,
+  {
+    id: "case_98215",
+    title: "Repeated outbound connection to unknown cloud storage IP",
+    inputContent: "185.220.101.5:443 - 82 attempts from workstation-fin-04",
+    inputType: "ip",
+    priority: "medium",
+    status: "completed",
+    overallSeverity: "high",
+    confidence: "high",
+    createdAt: "2 hours ago",
+    updatedAt: "1 hour ago",
+    currentStep: "Investigation complete",
+    progressPercentage: 100,
+    verdict: {
+      id: "vrd_105",
+      investigationId: "case_98215",
+      whatHappened:
+        "An internal accounting workstation repeatedly attempted outbound connection to a known exit relay.",
+      howSeriousIsIt: "High risk. Potential data staging or command link.",
+      whatToDoNext: [
+        "Isolate workstation-fin-04 from the local subnet.",
+        "Check local disk for unauthorized persistence scripts.",
+      ],
+      overallSeverity: "high",
+      confidence: "high",
+      confidenceScore: 0.88,
+      verdictTime: "1 hour ago",
+    },
+    suspiciousItems: [
+      {
+        id: "ioc_4",
+        investigationId: "case_98215",
+        type: "ip",
+        value: "185.220.101.5",
+        normalizedValue: "185.220.101.5",
+        severity: "high",
+        confidence: "high",
+        reputationScore: 84,
+      },
+    ],
+  },
+  {
+    id: "case_98216",
+    title: "Internal authentication failure threshold exceeded",
+    inputContent: "auth.log: 420 failed SSH logins for user admin from 10.0.4.12",
+    inputType: "log",
+    priority: "medium",
+    status: "completed",
+    overallSeverity: "medium",
+    confidence: "medium",
+    createdAt: "5 hours ago",
+    updatedAt: "4 hours ago",
+    currentStep: "Investigation complete",
+    progressPercentage: 100,
+    verdict: {
+      id: "vrd_106",
+      investigationId: "case_98216",
+      whatHappened:
+        "A vulnerability scanner executed scheduled credential sweeps on internal host 10.0.4.12.",
+      howSeriousIsIt: "Medium risk. Likely harmless authorized vulnerability scan.",
+      whatToDoNext: [
+        "Confirm schedule with SecOps testing team.",
+        "No escalation needed if test window is verified.",
+      ],
+      overallSeverity: "medium",
+      confidence: "medium",
+      confidenceScore: 0.72,
+      verdictTime: "4 hours ago",
+    },
+  },
+  {
+    id: "case_98217",
+    title: "Software update hash verification for engineering laptop",
+    inputContent: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    inputType: "hash",
+    priority: "low",
+    status: "completed",
+    overallSeverity: "safe",
+    confidence: "high",
+    createdAt: "1 day ago",
+    updatedAt: "1 day ago",
+    currentStep: "Investigation complete",
+    progressPercentage: 100,
+    verdict: {
+      id: "vrd_107",
+      investigationId: "case_98217",
+      whatHappened: "Checksum matches official vendor release signed by developer key.",
+      howSeriousIsIt: "Safe. Likely harmless authentic package.",
+      whatToDoNext: ["Approve software installation."],
+      overallSeverity: "safe",
+      confidence: "high",
+      confidenceScore: 0.99,
+      verdictTime: "1 day ago",
+    },
+  },
+];
+
+export const mockDashboardMetrics: DashboardMetrics = {
+  activeInvestigationsCount: 3,
+  highRiskCount: 8,
+  verifiedSafeCount: 42,
+  teamResponseRate: 98.4,
+  severityTrends: [
+    { date: "Mon", critical: 2, high: 4, medium: 7, low: 12, safe: 18 },
+    { date: "Tue", critical: 1, high: 5, medium: 9, low: 10, safe: 22 },
+    { date: "Wed", critical: 4, high: 3, medium: 6, low: 15, safe: 24 },
+    { date: "Thu", critical: 2, high: 7, medium: 8, low: 11, safe: 19 },
+    { date: "Fri", critical: 5, high: 6, medium: 10, low: 14, safe: 25 },
+    { date: "Sat", critical: 1, high: 2, medium: 4, low: 8, safe: 15 },
+    { date: "Sun", critical: 3, high: 4, medium: 5, low: 9, safe: 18 },
+  ],
+  threatCategories: [
+    { category: "Phishing & Fake Invoices", count: 28, percentage: 42 },
+    { category: "Suspicious Network Destinations", count: 18, percentage: 27 },
+    { category: "Untrusted Downloads", count: 12, percentage: 18 },
+    { category: "Authentication Anomaly", count: 9, percentage: 13 },
+  ],
+  recentInvestigations: mockInvestigationsList,
+};
+
+export const mockTeamMembers: TeamMemberStatus[] = [
+  {
+    id: "tm_1",
+    name: "Quick assessment",
+    internalRole: "Triage Agent",
+    responsibility:
+      "Inspects incoming clues, figures out the source format, and establishes immediate severity.",
+    status: "ready",
+    recentActivity: "Categorized 14 incoming items in the past hour.",
+    advancedSettings: { model: "Fast Core", temperature: 0.1, maxTokens: 1000 },
+  },
+  {
+    id: "tm_2",
+    name: "Checking suspicious items",
+    internalRole: "IOC Analysis Agent",
+    responsibility:
+      "Pulls apart suspicious addresses, links, and file signatures to uncover anomalies.",
+    status: "investigating",
+    recentActivity: "Investigating verify-securepay-portal.com.",
+    advancedSettings: { model: "Reasoning Core", temperature: 0.0, maxTokens: 2000 },
+  },
+  {
+    id: "tm_3",
+    name: "Known-threat check",
+    internalRole: "Threat Intelligence Agent",
+    responsibility:
+      "Cross-checks suspicious items with external threat databases and defense feeds.",
+    status: "ready",
+    recentActivity: "Enriched 42 indicators against threat feeds.",
+    advancedSettings: { model: "Enrichment Engine", temperature: 0.0, maxTokens: 1500 },
+  },
+  {
+    id: "tm_4",
+    name: "Writing your report",
+    internalRole: "Report Agent",
+    responsibility:
+      "Compiles plain-language explanations, danger levels, and next steps for your team.",
+    status: "ready",
+    recentActivity: "Produced executive summary for Case #98214.",
+    advancedSettings: { model: "Synthesis Core", temperature: 0.2, maxTokens: 3000 },
+  },
+  {
+    id: "tm_5",
+    name: "Connecting the dots",
+    internalRole: "Correlation Agent",
+    responsibility:
+      "Links separate evidence into a unified timeline of how the suspicious event unfolded.",
+    status: "idle",
+    recentActivity: "Standby for complex multi-source cases.",
+  },
+  {
+    id: "tm_6",
+    name: "Risk level",
+    internalRole: "Risk Assessment Agent",
+    responsibility: "Calculates overall threat urgency with clear rationale.",
+    status: "idle",
+    recentActivity: "Assigned high severity rating to recent phishing campaign.",
+  },
+  {
+    id: "tm_7",
+    name: "Double-checking",
+    internalRole: "Verification Agent",
+    responsibility: "Validates proof and challenges preliminary assumptions to avoid false alarms.",
+    status: "idle",
+    recentActivity: "Confirmed 99.1% verdict accuracy on recent triage batch.",
+  },
+  {
+    id: "tm_8",
+    name: "File & log inspection",
+    internalRole: "Artifact Analysis Agent",
+    responsibility:
+      "Inspects internal structure of suspicious attachments without ever executing them.",
+    status: "idle",
+    recentActivity: "Static inspection on document formats and logs.",
+  },
+];
+
+export const mockThreatLookupSamples: Record<string, ThreatLookupResult> = {
+  "verify-securepay-portal.com": {
+    query: "verify-securepay-portal.com",
+    detectedType: "domain",
+    reputation: "malicious",
+    confidenceScore: 0.95,
+    firstSeen: "2 days ago",
+    lastSeen: "10 minutes ago",
+    sourceCitations: ["Global Threat Registry", "Domain Age Telemetry", "Community Blacklists"],
+    plainSummary:
+      "This web domain was registered 48 hours ago and impersonates a payroll processing brand to trick users into entering login details.",
+    howAttackWorks: [
+      {
+        tactic: "Initial Access",
+        technique: "Spearphishing Link",
+        explanation:
+          "Attackers send authentic-looking emails asking recipients to click this address.",
+      },
+      {
+        tactic: "Credential Access",
+        technique: "Credential Harvesting Form",
+        explanation: "The destination website presents a clone of a corporate login box.",
+      },
+    ],
+    technicalDetails: {
+      ipResolution: "194.26.29.112",
+      asn: "AS44592",
+      country: "Netherlands",
+      domainAgeDays: 2,
+    },
+  },
+  "194.26.29.112": {
+    query: "194.26.29.112",
+    detectedType: "ip",
+    reputation: "malicious",
+    confidenceScore: 0.92,
+    firstSeen: "5 days ago",
+    lastSeen: "15 minutes ago",
+    sourceCitations: ["AbuseIPDB", "URLhaus Feed"],
+    plainSummary:
+      "An external internet address with dozens of recent community reports for phishing distribution and automated network scanning.",
+    howAttackWorks: [
+      {
+        tactic: "Command and Control",
+        technique: "Web Service Relay",
+        explanation: "Hosts remote staging archives for credential-collecting campaigns.",
+      },
+    ],
+    technicalDetails: {
+      asn: "AS44592",
+      country: "Netherlands",
+      abuseConfidenceScore: 100,
+    },
+  },
+};
+
+export const mockReportsList: Report[] = [
+  {
+    id: "rep_98214",
+    investigationId: "case_98214",
+    investigationTitle: "Suspicious payment invoice email with external download link",
+    generatedAt: "Today at 11:32 AM",
+    generatedBy: "Writing your report",
+    executiveSummary:
+      "A deceptive invoice email attempted to deceive employees into downloading an info-stealing package. All indicators have been verified and containment steps outlined.",
+    verdict: sampleActiveInvestigation.verdict!,
+    sections: [
+      {
+        id: "sec_1",
+        title: "Executive Summary",
+        content:
+          "On October 13, 2026, an urgent payment notification was intercepted. The sender used a lookalike payroll domain to distribute malicious links.",
+        order: 1,
+      },
+      {
+        id: "sec_2",
+        title: "Identified Suspicious Items",
+        content:
+          "Three primary items were identified: sender address accounting-billing@verify-securepay-portal.com, download link https://storage-verify-portal.top/invoice-8921.zip, and server address 194.26.29.112.",
+        order: 2,
+      },
+      {
+        id: "sec_3",
+        title: "Action Plan",
+        content:
+          "1. Block sender domain at gateway.\n2. Add firewall rule for IP 194.26.29.112.\n3. Verify inbox logs for matching subject lines.",
+        order: 3,
+      },
+    ],
+    iocCount: 3,
+    artifactsCount: 1,
+  },
+];

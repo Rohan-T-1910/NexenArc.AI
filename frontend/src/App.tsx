@@ -14,14 +14,7 @@ import History from "./pages/history";
 function App() {
   return (
     <Routes>
-      <Route
-        element={
-          <AppLayout
-            title="Dashboard"
-            subtitle="Real-time posture across agents, artifacts and incidents"
-          />
-        }
-      >
+      <Route element={<AppLayout />}>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/new-investigation" element={<NewInvestigation />} />
