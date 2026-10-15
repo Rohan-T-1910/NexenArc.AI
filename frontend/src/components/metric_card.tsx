@@ -1,52 +1,55 @@
 import type { ReactNode } from "react";
 
-type MetricCardProps = {
+export type MetricVariant = "linen" | "rose" | "amber" | "emerald" | "slate";
+
+interface MetricCardProps {
   title: string;
   value: string | number;
   description: string;
   footer?: string;
   icon?: ReactNode;
-  variant?: "blue" | "red" | "green" | "yellow";
-};
+  variant?: MetricVariant;
+}
 
-function MetricCard({
+export function MetricCard({
   title,
   value,
   description,
   footer,
   icon,
-  variant = "blue",
+  variant = "linen",
 }: MetricCardProps) {
-  const iconStyles = {
-    blue: "border-blue-500/30 bg-blue-500/10 text-blue-400",
-    red: "border-red-500/30 bg-red-500/10 text-red-400",
-    green: "border-green-500/30 bg-green-500/10 text-green-400",
-    yellow: "border-yellow-500/30 bg-yellow-500/10 text-yellow-400",
+  const iconStyles: Record<MetricVariant, string> = {
+    linen: "border-[#FAF0E6]/30 bg-[#FAF0E6]/10 text-[#FAF0E6]",
+    rose: "border-[#fb7185]/30 bg-[#fb7185]/10 text-[#fb7185]",
+    amber: "border-[#fb923c]/30 bg-[#fb923c]/10 text-[#fb923c]",
+    emerald: "border-[#34d399]/30 bg-[#34d399]/10 text-[#34d399]",
+    slate: "border-[#B9B4C7]/30 bg-[#B9B4C7]/10 text-[#B9B4C7]",
   };
+
   return (
-    <div className="rounded-3xl border border-white/10 bg-[#0d1016] p-5">
+    <div className="rounded-2xl border border-[#5C5470]/50 bg-[#352F44] p-5 shadow-sm transition hover:border-[#B9B4C7]/40">
       <div className="flex items-start justify-between">
-        <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{title}</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-[#B9B4C7]">{title}</p>
 
         {icon && (
           <div
-            className={`flex h-9 w-9 items-center justify-center rounded-lg border ${iconStyles[variant]}`}
+            className={`flex h-9 w-9 items-center justify-center rounded-xl border ${iconStyles[variant]}`}
           >
             {icon}
           </div>
         )}
       </div>
 
-      <div className="mt-2">
-        <p className="text-3xl font-semibold text-white">{value}</p>
-        <p className="mt-1 text-sm text-gray-500">↗ {description}</p>
+      <div className="mt-3">
+        <p className="text-3xl font-bold tracking-tight text-[#FAF0E6]">{value}</p>
+        <p className="mt-1 text-xs font-medium text-[#B9B4C7]">{description}</p>
       </div>
 
       {footer && (
-        <>
-          <div className="my-4 border-t border-white/10" />
-          <p className="text-sm text-gray-500">{footer}</p>
-        </>
+        <div className="mt-4 pt-3 border-t border-[#5C5470]/40">
+          <p className="text-xs text-[#B9B4C7]">{footer}</p>
+        </div>
       )}
     </div>
   );

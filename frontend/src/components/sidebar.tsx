@@ -3,12 +3,18 @@ import {
   Search,
   Shield,
   Radar,
-  Bot,
+  Users,
   FileText,
   History,
   Settings,
+  HelpCircle,
 } from "lucide-react";
 import NavItem from "./nav_item";
+import ArcLogo from "./arc_logo";
+
+interface SidebarProps {
+  onOpenWalkthrough?: () => void;
+}
 
 const navigationSections = [
   {
@@ -30,7 +36,7 @@ const navigationSections = [
         icon: Shield,
       },
       {
-        label: "Threat Intelligence",
+        label: "Threat Lookup",
         path: "/threat-intelligence",
         icon: Radar,
       },
@@ -40,9 +46,9 @@ const navigationSections = [
     title: "Operations",
     items: [
       {
-        label: "AI Agents",
+        label: "Your AI Team",
         path: "/ai-agents",
-        icon: Bot,
+        icon: Users,
       },
       {
         label: "Reports",
@@ -63,17 +69,27 @@ const navigationSections = [
   },
 ];
 
-function Sidebar() {
+export function Sidebar({ onOpenWalkthrough }: SidebarProps) {
   return (
-    <aside className="flex min-h-screen w-64 flex-col border-r border-white/10 bg-[#0d1016] px-4 py-5 text-white">
-      <div className="mb-8 px-3">
-        <h1 className="text-xl font-semibold">NexenARC</h1>
+    <aside className="flex min-h-screen w-64 flex-col border-r border-[#5C5470]/40 bg-[#352F44] px-4 py-5 text-[#FAF0E6]">
+      {/* Brand Header */}
+      <div className="mb-6 flex items-center gap-3 px-3">
+        <ArcLogo size={30} />
+        <div>
+          <h1 className="text-base font-bold tracking-tight text-[#FAF0E6]">NexenArc</h1>
+          <p className="text-[10px] uppercase tracking-wider text-[#B9B4C7]">
+            Investigation Platform
+          </p>
+        </div>
       </div>
 
-      <nav className="flex flex-col gap-6">
+      {/* Navigation Sections */}
+      <nav className="flex flex-1 flex-col gap-6">
         {navigationSections.map((section) => (
           <div key={section.title}>
-            <p className="mb=2 pb-4 pt-3 px-3 text-xs font-medium text-gray-500">{section.title}</p>
+            <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-[#B9B4C7]/60">
+              {section.title}
+            </p>
 
             <div className="flex flex-col gap-1">
               {section.items.map((item) => (
@@ -83,7 +99,22 @@ function Sidebar() {
           </div>
         ))}
       </nav>
+
+      {/* Footer / Walkthrough trigger */}
+      {onOpenWalkthrough && (
+        <div className="mt-auto pt-4 border-t border-[#5C5470]/40">
+          <button
+            type="button"
+            onClick={onOpenWalkthrough}
+            className="flex w-full items-center gap-2.5 rounded-xl border border-[#5C5470]/40 bg-[#221E2B]/50 px-3 py-2.5 text-xs text-[#B9B4C7] hover:bg-[#5C5470]/30 hover:text-[#FAF0E6] transition cursor-pointer"
+          >
+            <HelpCircle size={15} />
+            <span>How it works</span>
+          </button>
+        </div>
+      )}
     </aside>
   );
 }
+
 export default Sidebar;

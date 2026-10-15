@@ -8,52 +8,28 @@ import {
   YAxis,
 } from "recharts";
 
-const data = [
-  {
-    day: "Mon",
-    medium: 44,
-    high: 28,
-    critical: 12,
-  },
-  {
-    day: "Tue",
-    medium: 50,
-    high: 32,
-    critical: 18,
-  },
-  {
-    day: "Wed",
-    medium: 47,
-    high: 26,
-    critical: 8,
-  },
-  {
-    day: "Thu",
-    medium: 58,
-    high: 41,
-    critical: 22,
-  },
-  {
-    day: "Fri",
-    medium: 62,
-    high: 37,
-    critical: 16,
-  },
-  {
-    day: "Sat",
-    medium: 35,
-    high: 19,
-    critical: 6,
-  },
-  {
-    day: "Sun",
-    medium: 40,
-    high: 24,
-    critical: 11,
-  },
+interface ThreatTrendProps {
+  data?: {
+    date: string;
+    critical: number;
+    high: number;
+    medium: number;
+    low?: number;
+    safe: number;
+  }[];
+}
+
+const defaultData = [
+  { date: "Mon", critical: 2, high: 4, medium: 7, safe: 18 },
+  { date: "Tue", critical: 1, high: 5, medium: 9, safe: 22 },
+  { date: "Wed", critical: 4, high: 3, medium: 6, safe: 24 },
+  { date: "Thu", critical: 2, high: 7, medium: 8, safe: 19 },
+  { date: "Fri", critical: 5, high: 6, medium: 10, safe: 25 },
+  { date: "Sat", critical: 1, high: 2, medium: 4, safe: 15 },
+  { date: "Sun", critical: 3, high: 4, medium: 5, safe: 18 },
 ];
 
-function ThreatTrend() {
+export function ThreatTrend({ data = defaultData }: ThreatTrendProps) {
   return (
     <div className="h-[260px] w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -67,71 +43,75 @@ function ThreatTrend() {
           }}
         >
           <defs>
-            <linearGradient id="mediumGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#4f8cff" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#4f8cff" stopOpacity={0.02} />
+            <linearGradient id="criticalGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#fb7185" stopOpacity={0.35} />
+              <stop offset="100%" stopColor="#fb7185" stopOpacity={0.02} />
             </linearGradient>
 
             <linearGradient id="highGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#f5a623" stopOpacity={0.25} />
-              <stop offset="100%" stopColor="#f5a623" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="#fb923c" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="#fb923c" stopOpacity={0.02} />
             </linearGradient>
 
-            <linearGradient id="criticalGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ef4444" stopOpacity={0.25} />
-              <stop offset="100%" stopColor="#ef4444" stopOpacity={0.02} />
+            <linearGradient id="mediumGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#facc15" stopOpacity={0.25} />
+              <stop offset="100%" stopColor="#facc15" stopOpacity={0.02} />
             </linearGradient>
           </defs>
 
-          <CartesianGrid strokeDasharray="3 3" stroke="#273244" vertical={true} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#5C5470" strokeOpacity={0.3} />
 
           <XAxis
-            dataKey="day"
-            stroke="#64748b"
-            tickLine={false}
-            axisLine={false}
+            dataKey="date"
+            stroke="#B9B4C7"
             fontSize={12}
-            dy={4}
+            tickLine={false}
+            axisLine={{ stroke: "#5C5470", strokeOpacity: 0.4 }}
           />
 
-          <YAxis stroke="#64748b" tickLine={false} axisLine={false} fontSize={12} width={35} />
+          <YAxis
+            stroke="#B9B4C7"
+            fontSize={12}
+            tickLine={false}
+            axisLine={{ stroke: "#5C5470", strokeOpacity: 0.4 }}
+          />
 
           <Tooltip
             contentStyle={{
-              backgroundColor: "#151a23",
-              border: "1px solid #2a3444",
-              borderRadius: "10px",
-              color: "#ffffff",
-              padding: "10px 12px",
+              backgroundColor: "#352F44",
+              borderColor: "rgba(92, 84, 112, 0.7)",
+              borderRadius: "12px",
+              color: "#FAF0E6",
+              fontSize: "12px",
+              boxShadow: "0 8px 24px rgba(34, 30, 43, 0.5)",
             }}
-            labelStyle={{
-              color: "#cbd5e1",
-              marginBottom: "6px",
-            }}
-          />
-
-          <Area
-            type="monotone"
-            dataKey="medium"
-            stroke="#4f8cff"
-            strokeWidth={2}
-            fill="url(#mediumGradient)"
-          />
-
-          <Area
-            type="monotone"
-            dataKey="high"
-            stroke="#f5a623"
-            strokeWidth={2}
-            fill="url(#highGradient)"
           />
 
           <Area
             type="monotone"
             dataKey="critical"
-            stroke="#ef4444"
+            stroke="#fb7185"
             strokeWidth={2}
             fill="url(#criticalGradient)"
+            name="Critical"
+          />
+
+          <Area
+            type="monotone"
+            dataKey="high"
+            stroke="#fb923c"
+            strokeWidth={2}
+            fill="url(#highGradient)"
+            name="High"
+          />
+
+          <Area
+            type="monotone"
+            dataKey="medium"
+            stroke="#facc15"
+            strokeWidth={2}
+            fill="url(#mediumGradient)"
+            name="Medium"
           />
         </AreaChart>
       </ResponsiveContainer>

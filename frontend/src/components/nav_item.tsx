@@ -1,25 +1,28 @@
 import { NavLink } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
 
-type NavItemProps = {
+interface NavItemProps {
   label: string;
   path: string;
   icon: LucideIcon;
-};
+}
 
-function NavItem({ label, path, icon: Icon }: NavItemProps) {
+export function NavItem({ label, path, icon: Icon }: NavItemProps) {
   return (
     <NavLink
       to={path}
       className={({ isActive }) =>
-        isActive
-          ? "flex items-center gap-3 rounded-lg bg-[#20242c] px-3 py-2 text-sm font-medium text-white outline-none"
-          : "flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-300 outline-none hover:bg-white/5 hover:text-white"
+        `flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-medium transition cursor-pointer ${
+          isActive
+            ? "bg-[#5C5470]/60 text-[#FAF0E6] shadow-[0_2px_8px_rgba(34,30,43,0.3)] font-semibold"
+            : "text-[#B9B4C7] hover:bg-[#5C5470]/30 hover:text-[#FAF0E6]"
+        }`
       }
     >
-      <Icon size={18} />
+      <Icon size={17} />
       <span>{label}</span>
     </NavLink>
   );
 }
+
 export default NavItem;
