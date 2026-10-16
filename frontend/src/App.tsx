@@ -1,7 +1,8 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import AppLayout from "./layouts/AppLayout";
 
+import HeroPage from "./pages/hero";
 import Dashboard from "./pages/dashboard";
 import NewInvestigation from "./pages/new_investigation";
 import ActiveInvestigation from "./pages/active_investigation";
@@ -14,8 +15,13 @@ import History from "./pages/history";
 function App() {
   return (
     <Routes>
+      {/* Public Landing & Glassmorphic Auth Hero Page */}
+      <Route path="/" element={<HeroPage />} />
+      <Route path="/login" element={<HeroPage />} />
+      <Route path="/signup" element={<HeroPage />} />
+
+      {/* Authenticated Workspace Application Layout */}
       <Route element={<AppLayout />}>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/new-investigation" element={<NewInvestigation />} />
         <Route path="/active-investigation" element={<ActiveInvestigation />} />

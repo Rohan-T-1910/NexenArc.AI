@@ -30,6 +30,21 @@ def create_application() -> FastAPI:
     async def health_check() -> HealthResponse:
         return HealthResponse(status="ok")
 
+    @application.get("/", tags=["Root"])
+    async def root_index() -> dict[str, str]:
+        return {
+            "name": "NexenArc Backend API",
+            "version": "0.1.0",
+            "docs": "/docs",
+            "health": "/health",
+            "frontend_ui": "http://localhost:5173",
+            "message": "NexenArc API is active. Open http://localhost:5173 in your browser for the web application hero page.",
+        }
+
+    from app.api.v1.router import api_v1_router
+
+    application.include_router(api_v1_router)
+
     return application
 
 
