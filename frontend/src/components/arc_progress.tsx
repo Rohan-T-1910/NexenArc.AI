@@ -16,7 +16,7 @@ export function ArcProgress({
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   // Use a 270 degree arc for a classic speedometer/gauge feel
-  const arcLength = circumference * 1.00;
+  const arcLength = circumference * 1.0;
   const strokeDashoffset = arcLength - (arcLength * Math.min(percentage, 100)) / 100;
 
   return (
